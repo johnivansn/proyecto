@@ -1,5 +1,5 @@
 ================================================================================
-FECHA REPORTE: 07 Abril 2026
+FECHA REPORTE: 08 Abril 2026
 ================================================================================
 1. HITOS COMPLETADOS
 ================================================================================
@@ -20,7 +20,7 @@ FECHA REPORTE: 07 Abril 2026
 
 ✓ Setup de herramientas de calidad de código
   - Prettier: Configuración base (.prettierrc)
-  - ESLint: Configuración para TypeScript (.eslintrc.json)
+  - ESLint: Migrado a flat config (eslint.config.js)
   - Husky: Pre-commit y pre-push hooks inicializados
   - Lint-staged: Configurado para validar archivos antes de commit
 
@@ -35,6 +35,28 @@ FECHA REPORTE: 07 Abril 2026
 ✓ Configuración de .gitignore
   - Exclusión de node_modules, logs, builds, coverage y .env
 
+✓ Preparación de prueba Neon
+  - Driver PostgreSQL instalado (pg)
+  - Script de prueba creado (scripts/test-neon.js)
+
+✓ Conexión Neon verificada
+  - dotenv instalado
+  - Prueba OK con SELECT NOW()
+
+✓ Endpoints definidos y pruebas TDD creadas
+  - Contratos de endpoints basados en docs/BD y docs/Registro
+  - Tests: institutions, teachers, registration-sessions
+  - jest.config.js y app base (src/app.js)
+
+✓ Implementación mínima de endpoints (stubs)
+  - Rutas creadas en src/app.js
+  - Validaciones mínimas para contratos TDD
+
+✓ Checks pre-commit completos
+  - npm run lint (OK)
+  - npm run format (OK)
+  - npm test (OK)
+
 ================================================================================
 2. ESTADO ACTUAL DEL ENTORNO
 ================================================================================
@@ -47,8 +69,8 @@ Node.js + npm                       ✓ Operativo        PowerShell + CMD funcio
 Prettier                            ✓ Configurado      .prettierrc activo
                                                         Formateo automático habilitado
 
-ESLint                              ✓ Configurado      .eslintrc.json implementado
-                                                        Reglas TypeScript activas
+ESLint                              ✓ Configurado      eslint.config.js activo
+                                                        ESLint v9 + plugins compatibles
 
 Husky                               ✓ Inicializado     Pre-commit + pre-push hooks
                                                         Script prepare en package.json
@@ -62,12 +84,13 @@ Scripts npm                         ✓ Disponibles      lint, format, test habi
 CI/CD Pipeline                      ✓ Definido         GitHub Actions workflow listo
                                                         Multi-version Node.js testing
 
-MongoDB (conexión remota)           ✗ Fallida          Error ECONNREFUSED al resolver SRV
-                                                        Revisar red/whitelist/credenciales
+MongoDB (remoto/local)              — Desc descartado  No se usará MongoDB
 
-MongoDB (local)                     ◐ Pendiente        Requiere instalación en Windows
+PostgreSQL (local)                  — Desc descartado  Se usará Neon en su lugar
 
-PostgreSQL (local)                  ◐ Pendiente        Requiere instalación en Windows
+Neon (PostgreSQL cloud)             ✓ Operativa        Conexión validada con SELECT NOW()
+
+Endpoints (TDD)                     ✓ Verde            Pruebas pasando con stubs
 
 
 ================================================================================
@@ -80,12 +103,18 @@ PostgreSQL (local)                  ◐ Pendiente        Requiere instalación e
 • Control de versiones: Git
 • Containerización: Docker disponible
 
-• Dependencias de desarrollo instaladas:
-  - eslint, prettier
-  - eslint-config-prettier, eslint-plugin-prettier
-  - husky, lint-staged
-  - jest
+• Dependencias instaladas para TDD:
+  - express, multer, xlsx
+  - jest, supertest
+  - pg, dotenv
+  - @typescript-eslint/parser, @typescript-eslint/eslint-plugin, eslint-plugin-import
 
-• Prueba MongoDB:
-  - Comando: node scripts/test-mongo.js
-  - Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.tcbckkv.mongodb.net
+• Resultado Jest:
+  - 3 suites OK / 9 tests OK
+
+• Lint:
+  - Migración a flat config (eslint.config.js)
+  - ESLint v9 para compatibilidad de plugins
+
+• Seguridad:
+  - npm reportó 1 vulnerabilidad high pendiente de revisión

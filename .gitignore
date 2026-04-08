@@ -40,3 +40,7 @@ Thumbs.db
 
 # Misc
 *.local
+
+docs
+.agents
+.gitignore
