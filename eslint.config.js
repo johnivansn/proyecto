@@ -5,6 +5,9 @@ const importPlugin = require('eslint-plugin-import');
 
 module.exports = [
   {
+    ignores: ['frontend/**'],
+  },
+  {
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',

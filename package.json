@@ -17,7 +17,8 @@
     "prepare": "husky install",
     "test": "jest",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "start:api": "node src/server.js"
   },
   "lint-staged": {
     "*.js": [

@@ -33,7 +33,7 @@ FECHA REPORTE: 08 Abril 2026
   - Archivo creado: scripts/test-mongo.js
 
 ✓ Configuración de .gitignore
-  - Exclusión de node_modules, logs, builds, coverage y .env
+  - Exclusión de node_modules, logs, builds, coverage, .env y .next
 
 ✓ Preparación de prueba Neon
   - Driver PostgreSQL instalado (pg)
@@ -57,6 +57,18 @@ FECHA REPORTE: 08 Abril 2026
   - npm run format (OK)
   - npm test (OK)
 
+✓ Funcionalidad API + persistencia base
+  - Escritura en tablas principales (institution, teacher, registration_session)
+  - Logs de validación de Excel
+
+✓ Frontend Next.js conectado
+  - Vista Excel con envío real
+  - API route en Next para proxy de carga
+
+✓ Recomendaciones pre-commit aplicadas
+  - ESLint ignora frontend/** para evitar conflictos
+  - Lint/format/test ejecutados en verde
+
 ================================================================================
 2. ESTADO ACTUAL DEL ENTORNO
 ================================================================================
@@ -70,7 +82,7 @@ Prettier                            ✓ Configurado      .prettierrc activo
                                                         Formateo automático habilitado
 
 ESLint                              ✓ Configurado      eslint.config.js activo
-                                                        ESLint v9 + plugins compatibles
+                                                        Frontend excluido en lint backend
 
 Husky                               ✓ Inicializado     Pre-commit + pre-push hooks
                                                         Script prepare en package.json
@@ -84,13 +96,11 @@ Scripts npm                         ✓ Disponibles      lint, format, test habi
 CI/CD Pipeline                      ✓ Definido         GitHub Actions workflow listo
                                                         Multi-version Node.js testing
 
-MongoDB (remoto/local)              — Desc descartado  No se usará MongoDB
-
-PostgreSQL (local)                  — Desc descartado  Se usará Neon en su lugar
-
 Neon (PostgreSQL cloud)             ✓ Operativa        Conexión validada con SELECT NOW()
 
-Endpoints (TDD)                     ✓ Verde            Pruebas pasando con stubs
+Endpoints (API)                     ✓ Funcional        Persistencia base habilitada
+
+Frontend (Next.js)                  ✓ Conectado        Vista Excel integrada con backend
 
 
 ================================================================================
@@ -103,18 +113,16 @@ Endpoints (TDD)                     ✓ Verde            Pruebas pasando con stu
 • Control de versiones: Git
 • Containerización: Docker disponible
 
-• Dependencias instaladas para TDD:
-  - express, multer, xlsx
-  - jest, supertest
-  - pg, dotenv
-  - @typescript-eslint/parser, @typescript-eslint/eslint-plugin, eslint-plugin-import
+• Backend:
+  - src/app.js (Express + Neon)
+  - src/server.js (arranque API)
+
+• Frontend:
+  - frontend/src/app/page.tsx (UI + envío)
+  - frontend/src/app/api/registration-sessions/route.ts (proxy)
 
 • Resultado Jest:
   - 3 suites OK / 9 tests OK
-
-• Lint:
-  - Migración a flat config (eslint.config.js)
-  - ESLint v9 para compatibilidad de plugins
 
 • Seguridad:
   - npm reportó 1 vulnerabilidad high pendiente de revisión
