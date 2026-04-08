@@ -69,6 +69,25 @@ FECHA REPORTE: 08 Abril 2026
   - ESLint ignora frontend/** para evitar conflictos
   - Lint/format/test ejecutados en verde
 
+✓ Fix CI Prettier
+  - Script format:check agregado
+  - npm run format:check (OK)
+
+✓ Plantilla Excel descargable
+  - Botón funcional genera plantilla_registro.xlsx
+  - Dependencia xlsx añadida al frontend
+
+✓ Plantilla con fila de ejemplo
+  - Fila de ejemplo en rojo
+  - Dependencia xlsx-js-style añadida
+
+✓ Ajuste de anchos de columnas
+  - Columnas con ancho óptimo (wch)
+
+✓ Encabezados fijos y en negrita
+  - Freeze pane en fila 1
+  - Encabezados en negrita
+
 ================================================================================
 2. ESTADO ACTUAL DEL ENTORNO
 ================================================================================
@@ -92,6 +111,7 @@ Lint-staged                         ✓ Activo           Validación pre-commit 
 
 Scripts npm                         ✓ Disponibles      lint, format, test habilitados
                                                         lint-staged integrado
+                                                        format:check agregado
 
 CI/CD Pipeline                      ✓ Definido         GitHub Actions workflow listo
                                                         Multi-version Node.js testing
@@ -101,12 +121,11 @@ Neon (PostgreSQL cloud)             ✓ Operativa        Conexión validada con 
 Endpoints (API)                     ✓ Funcional        Persistencia base habilitada
 
 Frontend (Next.js)                  ✓ Conectado        Vista Excel integrada con backend
-
+                                                        Plantilla con ejemplo y formato
 
 ================================================================================
 3. NOTAS TÉCNICAS
 ================================================================================
-
 • Sistema Operativo: Windows (PowerShell/CMD)
 • Versiones de Node.js: 18.x LTS y 20.x LTS (via NVM)
 • Gestor de paquetes: npm
@@ -123,6 +142,3 @@ Frontend (Next.js)                  ✓ Conectado        Vista Excel integrada c
 
 • Resultado Jest:
   - 3 suites OK / 9 tests OK
-
-• Seguridad:
-  - npm reportó 1 vulnerabilidad high pendiente de revisión

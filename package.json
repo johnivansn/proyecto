@@ -18,6 +18,7 @@
     "test": "jest",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "start:api": "node src/server.js"
   },
   "lint-staged": {

@@ -1,11 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import * as XLSX from 'xlsx-js-style';
 
 type StatusState = {
   type: 'idle' | 'success' | 'error';
   message: string;
 };
+
+const REQUIRED_HEADERS = [
+  'Nombres estudiante',
+  'Apellidos estudiante',
+  'Primaria/secundaria',
+  'Curso (numeral 1 a 6)',
+  'Fecha de nacimiento',
+];
+
+const EXAMPLE_ROW = ['Nombres', 'Apellidos', 'primaria/secundaria', '1-6', 'AAAA-MM-DD'];
+
+const COLUMN_WIDTHS = [{ wch: 22 }, { wch: 22 }, { wch: 22 }, { wch: 20 }, { wch: 20 }];
 
 export default function Page() {
   const [status, setStatus] = useState<StatusState>({
@@ -14,6 +27,48 @@ export default function Page() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  function handleDownloadTemplate() {
+    const workbook = XLSX.utils.book_new();
+    const rows = [REQUIRED_HEADERS, EXAMPLE_ROW];
+    const sheet = XLSX.utils.aoa_to_sheet(rows);
+
+    sheet['!cols'] = COLUMN_WIDTHS;
+    sheet['!freeze'] = {
+      xSplit: 0,
+      ySplit: 1,
+      topLeftCell: 'A2',
+      activePane: 'bottomLeft',
+      state: 'frozen',
+    };
+
+    REQUIRED_HEADERS.forEach((_, index) => {
+      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index });
+      const cell = sheet[cellAddress];
+      if (cell) {
+        cell.s = {
+          font: {
+            bold: true,
+          },
+        };
+      }
+    });
+
+    EXAMPLE_ROW.forEach((_, index) => {
+      const cellAddress = XLSX.utils.encode_cell({ r: 1, c: index });
+      const cell = sheet[cellAddress];
+      if (cell) {
+        cell.s = {
+          font: {
+            color: { rgb: 'FF0000' },
+          },
+        };
+      }
+    });
+
+    XLSX.utils.book_append_sheet(workbook, sheet, 'Plantilla');
+    XLSX.writeFile(workbook, 'plantilla_registro.xlsx');
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -117,7 +172,7 @@ export default function Page() {
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Validando...' : 'Validar archivo'}
             </button>
-            <button type="button" className="secondary">
+            <button type="button" className="secondary" onClick={handleDownloadTemplate}>
               Descargar plantilla
             </button>
           </div>
